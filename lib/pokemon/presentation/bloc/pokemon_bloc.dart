@@ -17,14 +17,18 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
       return;
     }
 
-    emit(state.copyWith(isLoading: true, errorMessage: null));
+    emit(state.copyWith(isLoading: true));
 
     try {
       final pokemon = await getPokemonById.getPokemonById(event.id);
-      emit(state.copyWith(pokemon: pokemon, isLoading: false));
+
+      emit(
+          state.copyWith(pokemon: pokemon, isLoading: false, errorMessage: ''));
     } catch (e) {
       emit(state.copyWith(
-          isLoading: false, errorMessage: 'Pokemon no encontrado', pokemon: null));
+        isLoading: false,
+        errorMessage: 'Pokemon no encontrado',
+      ));
     }
   }
 }

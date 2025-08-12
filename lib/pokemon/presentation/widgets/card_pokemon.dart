@@ -15,8 +15,10 @@ class DetailPokemon extends StatelessWidget {
           extDetail('Pokemon Name', pokemon.name),
           extDetail('Altura', pokemon.height.toString()),
           extDetail('Base Experience', pokemon.baseExperience.toString()),
-          extDetail('Stats', pokemon.stat.toString()),
-          extDetail('Type', pokemon.type),
+          extDetail(
+              'Stats', pokemon.stats.map((stat) => stat.stat.name).join(', ')),
+          extDetail(
+              'Type', pokemon.types.map((type) => type.type.name).join(', ')),
           SizedBox(
             height: 20,
           ),
@@ -41,23 +43,25 @@ class DetailPokemon extends StatelessWidget {
 Widget extDetail(String parametro, String value) {
   return Row(
     children: [
-      RichText(
-        text: TextSpan(
-          text: '$parametro: ',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.blue,
-          ),
-          children: [
-            TextSpan(
-              text: value,
-              style: TextStyle(
-                fontWeight: FontWeight.normal,
-                color: Colors.black,
-              ),
+      Expanded(
+        child: RichText(
+          text: TextSpan(
+            text: '$parametro: ',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue,
             ),
-          ],
+            children: [
+              TextSpan(
+                text: value,
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ],

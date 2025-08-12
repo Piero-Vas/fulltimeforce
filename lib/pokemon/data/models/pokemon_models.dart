@@ -74,8 +74,25 @@ class PokemonResponse {
       order: order ?? 0,
       weight: weight ?? 0,
       frontDefaultSprite: sprites?.frontDefault ?? '',
-      type: types.isNotEmpty ? types[0].type?.name ?? '' : '',
-      stat: stats.isNotEmpty ? stats[0].stat?.name ?? '' : '',
+      types: types
+          .map((type) => Types(
+                slot: type.type?.name == null ? 0 : 1,
+                type: TypeEntitie(
+                  name: type.type?.name ?? '',
+                  url: type.type?.url ?? '',
+                ),
+              ))
+          .toList(),
+      stats: stats
+          .map((stat) => Stats(
+                baseStat: stat.stat?.name == null ? 0 : 1,
+                effort: stat.stat?.url == null ? 0 : 1,
+                stat: Stat(
+                  name: stat.stat?.name ?? '',
+                  url: stat.stat?.url ?? '',
+                ),
+              ))
+          .toList(),
     );
   }
 }
